@@ -14,8 +14,9 @@ public class MyRabbitTemplate {
 
     @Autowired RabbitTemplate rabbitTemplate;
 
-    public void convertAndSend(String exchange, String routingKey, Object object, CorrelationData correlationData, RabbitTemplate.ConfirmCallback confirmCallback) throws AmqpException {
-        rabbitTemplate.setConfirmCallback(confirmCallback);
+    public void convertAndSend(String exchange, String routingKey, Object object, CorrelationData correlationData, Object o) throws AmqpException {
+        rabbitTemplate.setConfirmCallback((RabbitTemplate.ConfirmCallback)o);
+        rabbitTemplate.setReturnCallback((RabbitTemplate.ReturnCallback)o);
         rabbitTemplate.convertAndSend(exchange, routingKey, object, correlationData);
     }
 }
