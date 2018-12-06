@@ -1,6 +1,7 @@
 package com.zb.rabbitmq.service;
 
 
+import com.zb.rabbitmq.component.MyRabbitTemplate;
 import com.zb.rabbitmq.config.RabbitMqConfig;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -17,14 +18,12 @@ import java.util.UUID;
 @Component
 public class ProducerService implements RabbitTemplate.ConfirmCallback {
 
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+    @Autowired MyRabbitTemplate myRabbitTemplate;
 
     public void publisher(String message){
-        rabbitTemplate.setConfirmCallback(this);
         String uuid = UUID.randomUUID().toString();
         CorrelationData correlationId = new CorrelationData(uuid);
-        rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE,RabbitMqConfig.ROUTINGKEY1,message,correlationId);
+        myRabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE,RabbitMqConfig.ROUTINGKEY1,message,correlationId,this);
 
     }
 
