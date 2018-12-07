@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * 消费者
  * Created by Zhangbing on 2018/12/1.
  */
 @RestController

@@ -15,7 +15,9 @@ public class MyRabbitTemplate {
     @Autowired RabbitTemplate rabbitTemplate;
 
     public void convertAndSend(String exchange, String routingKey, Object object, CorrelationData correlationData, Object o) throws AmqpException {
+        //设置消息发送确认
         rabbitTemplate.setConfirmCallback((RabbitTemplate.ConfirmCallback)o);
+        //设置消息发送失败通知
         rabbitTemplate.setReturnCallback((RabbitTemplate.ReturnCallback)o);
         rabbitTemplate.convertAndSend(exchange, routingKey, object, correlationData);
     }

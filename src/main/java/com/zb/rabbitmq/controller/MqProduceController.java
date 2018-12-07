@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
+ * 消息生产者
  * Created by Zhangbing on 2018/12/1.
  */
 @RestController
