@@ -7,12 +7,7 @@ import com.zb.rabbitmq.pattern.instance.RabbitMQConnection;
 
 import java.io.IOException;
 
-/**
- * 简单模式如果有多个消费者  那么同一条消息只能被一个消费者消费，其他消费者只能消费其他消息
- *
- * 而且简单模式有多个消费者  就演变吃Worker模式了  工作模式
- */
-public class Consumer {
+public class Consumer2 {
 
     public static void main(String[] args) {
 

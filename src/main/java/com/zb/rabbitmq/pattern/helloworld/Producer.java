@@ -39,7 +39,9 @@ public class Producer {
              * 参数3：可以设置属性参数
              * 参数4：消息数据的字节数组
              */
-            channel.basicPublish("", Constants.HELLOWORLD_QUEUE, null, "hello world rabbitmq".getBytes());
+            for (int i=0;i<5;i++){
+                channel.basicPublish("", Constants.HELLOWORLD_QUEUE, null, (String.valueOf(i)+"hello world rabbitmq").getBytes());
+            }
 
             //资源关闭
             channel.close();
