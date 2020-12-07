@@ -17,12 +17,25 @@ public class RabbitMQConnection {
         if (connectionFactory == null) {
             synchronized (RabbitMQConnection.class) {
                 if (connectionFactory == null) {
+                    /**
+                     * mac 上的配置
+                     */
+//                    connectionFactory = new ConnectionFactory();
+//                    connectionFactory.setHost("192.168.115.133");
+//                    connectionFactory.setPort(5672);
+//                    connectionFactory.setUsername("zhangbing");
+//                    connectionFactory.setPassword("zhangbing");
+//                    connectionFactory.setVirtualHost("/zb");
+                    /**
+                     * aliyun 配置
+                     */
                     connectionFactory = new ConnectionFactory();
-                    connectionFactory.setHost("192.168.115.133");
+                    connectionFactory.setHost("47.100.15.16");
                     connectionFactory.setPort(5672);
                     connectionFactory.setUsername("zhangbing");
                     connectionFactory.setPassword("zhangbing");
                     connectionFactory.setVirtualHost("/zb");
+
                 }
             }
         }
