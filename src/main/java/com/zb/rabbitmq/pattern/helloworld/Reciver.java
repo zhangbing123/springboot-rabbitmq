@@ -1,4 +1,4 @@
-package com.zb.rabbitmq.helloworld;
+package com.zb.rabbitmq.pattern.helloworld;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;

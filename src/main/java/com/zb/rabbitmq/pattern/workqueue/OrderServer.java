@@ -1,10 +1,10 @@
-package com.zb.rabbitmq.workqueue;
+package com.zb.rabbitmq.pattern.workqueue;
 
 import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.zb.rabbitmq.constants.Constants;
-import com.zb.rabbitmq.instance.RabbitMQConnection;
+import com.zb.rabbitmq.pattern.instance.RabbitMQConnection;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;

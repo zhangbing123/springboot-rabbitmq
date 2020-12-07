@@ -1,23 +1,23 @@
-package com.zb.rabbitmq.workqueue;
+package com.zb.rabbitmq.pattern.workqueue;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.zb.rabbitmq.constants.Constants;
-import com.zb.rabbitmq.instance.RabbitMQConnection;
+import com.zb.rabbitmq.pattern.instance.RabbitMQConnection;
 
 import java.io.IOException;
 
 /**
- * 工作队列模式-消费者1
+ * 工作队列模式-消费者2
+ *
  */
-public class SMSConsumer1 {
+public class SMSConsumer2 {
 
     public static void main(String[] args) throws IOException {
 
         Connection connection = RabbitMQConnection.getInstance();
 
         Channel channel = connection.createChannel();
-
         channel.queueDeclare(Constants.WORK_QUEUE, false, false, false, null);
 
         /**
@@ -27,7 +27,7 @@ public class SMSConsumer1 {
          */
         channel.basicQos(1);
 
-        channel.basicConsume(Constants.WORK_QUEUE, false, new SMSReciver(channel, "consumer1"));
+        channel.basicConsume(Constants.WORK_QUEUE, false, new SMSReciver(channel, "consumer2"));
 
     }
 }

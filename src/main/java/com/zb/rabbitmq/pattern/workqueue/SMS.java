@@ -1,4 +1,4 @@
-package com.zb.rabbitmq.workqueue;
+package com.zb.rabbitmq.pattern.workqueue;
 
 /**
  * @author 白起老师

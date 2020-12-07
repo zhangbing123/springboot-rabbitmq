@@ -1,4 +1,4 @@
-package com.zb.rabbitmq.workqueue;
+package com.zb.rabbitmq.pattern.workqueue;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;

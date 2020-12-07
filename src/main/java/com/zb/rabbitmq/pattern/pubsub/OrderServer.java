@@ -1,9 +1,9 @@
-package com.zb.rabbitmq.pubsub;
+package com.zb.rabbitmq.pattern.pubsub;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.zb.rabbitmq.constants.Constants;
-import com.zb.rabbitmq.instance.RabbitMQConnection;
+import com.zb.rabbitmq.pattern.instance.RabbitMQConnection;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
