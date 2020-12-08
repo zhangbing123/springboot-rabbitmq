@@ -27,7 +27,9 @@ public class Producer {
          * 参数
          * 消息内容
          */
-        channel.basicPublish(Constants.ROUTING_EXCHANGE,"routing_test_1",null,"路由模式的消息".getBytes());
+        for (int i = 0; i < 10; i++) {
+            channel.basicPublish(Constants.ROUTING_EXCHANGE, "routing_test", null, (String.valueOf(i) + ":路由模式的消息").getBytes());
+        }
 
         channel.close();
         connection.close();

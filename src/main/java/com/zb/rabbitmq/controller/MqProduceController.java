@@ -17,9 +17,15 @@ public class MqProduceController{
     private ProducerService producerService;
 
     @RequestMapping("/send1")
-    public String sendMessage(String message) {
-       producerService.publisher(message);
+    public String sendMessage(String message,String routingKey) {
+       producerService.publisher(message,routingKey);
        return "消息发送成功";
+    }
+
+    @RequestMapping("/limiting")
+    public String limiting(String message,String routingKey) {
+        producerService.limiting(message,routingKey);
+        return "消息发送成功";
     }
 
 }

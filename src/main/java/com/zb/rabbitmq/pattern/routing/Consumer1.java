@@ -31,11 +31,13 @@ public class Consumer1 {
         channel.basicConsume(Constants.USER_QUEUE, false, new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("消费者1接收到消息：" + new String(body));
+                String s = new String(body);
 
                 //确认签收
+                System.out.println("消费者1接收到消息：" + s + "并签收");
                 channel.basicAck(envelope.getDeliveryTag(), false);
             }
+
         });
     }
 }
