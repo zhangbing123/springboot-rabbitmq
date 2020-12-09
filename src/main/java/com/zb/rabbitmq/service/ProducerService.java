@@ -1,7 +1,9 @@
 package com.zb.rabbitmq.service;
 
 
+import com.zb.rabbitmq.constants.Constants;
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-import static com.zb.rabbitmq.constants.Constants.CONFIRM_FANOUT_EXCHANGE;
-import static com.zb.rabbitmq.constants.Constants.LIMIT_DIRECT_EXCHANGE;
+import static com.zb.rabbitmq.constants.Constants.*;
 
 
 /**
@@ -96,6 +97,67 @@ public class ProducerService implements RabbitTemplate.ConfirmCallback, RabbitTe
                 rabbitTemplate.convertAndSend(LIMIT_DIRECT_EXCHANGE, routingKey, message + ":" + finalI, correlationId);
             }).start();
         }
+
+    }
+
+    /**
+     * 针对每个消息设置过期时间
+     *
+     * @param message
+     * @param routingKey
+     */
+    public void ttlForSingleMsg(String message, String routingKey) {
+
+        //设置消息发送确认
+        rabbitTemplate.setConfirmCallback(this);
+        //设置消息发送失败通知
+        rabbitTemplate.setReturnCallback(this);
+
+        MessagePostProcessor messagePostProcessor = processor -> {
+            processor.getMessageProperties().setExpiration("20000");//设置存活时间
+            return processor;
+        };
+
+        rabbitTemplate.convertAndSend(Constants.DELAY_EXCHANGE, Constants.DELAY_QUEUE, message, messagePostProcessor);
+
+    }
+
+    /**
+     * 针对队列配置相同的过期时间
+     *
+     * @param message
+     * @param routingKey
+     */
+    public void ttlForQueue(String message, String routingKey) {
+
+        //设置消息发送确认
+        rabbitTemplate.setConfirmCallback(this);
+        //设置消息发送失败通知
+        rabbitTemplate.setReturnCallback(this);
+
+        rabbitTemplate.convertAndSend("", TTL_TEST_QUEUE2, message);
+
+    }
+
+    /**
+     * 针对队列配置相同的过期时间
+     *
+     * @param message
+     * @param routingKey
+     */
+    public void sendDelayMsg(String message, String routingKey) {
+
+        //设置消息发送确认
+        rabbitTemplate.setConfirmCallback(this);
+        //设置消息发送失败通知
+        rabbitTemplate.setReturnCallback(this);
+
+        MessagePostProcessor messagePostProcessor = message1 -> {
+            message1.getMessageProperties().setExpiration("5000");
+            return message1;
+        };
+
+        rabbitTemplate.convertAndSend(Constants.DELAY_EXCHANGE, routingKey, message, messagePostProcessor);
 
     }
 }

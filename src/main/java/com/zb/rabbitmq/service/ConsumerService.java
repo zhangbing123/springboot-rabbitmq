@@ -67,9 +67,29 @@ public class ConsumerService {
 
 
         } catch (Exception e) {
-            System.out.println("消息处理异常...."+message);
+            System.out.println("消息处理异常...." + message);
             //参数1 表示消息的id  参数2表示是否返回队列
 //            channel.basicReject(model.getAmqp_deliveryTag(), false);
+        }
+    }
+
+
+    @RabbitListener(queues = Constants.DEAD_MESSAGE_QUEUE)
+    @RabbitHandler
+    public void delayMessage(String message, Channel channel, @Headers Map map) throws IOException {
+
+        RabbitConsumerModel model = null;
+
+        try {
+
+            model = JSON.parseObject(JSON.toJSONString(map), RabbitConsumerModel.class);
+            System.out.println("消费者接收到消息:" + message + ",接收时间：" + System.currentTimeMillis());
+
+            channel.basicAck(model.getAmqp_deliveryTag(), false);
+
+
+        } catch (Exception e) {
+            System.out.println("消息处理异常...." + message);
         }
     }
 
